@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import PaletteDisplay from "../components/PaletteDisplay";
-import generatePalette from "../utils/gemini";
+import { generatePalette } from "../utils/gemini";
 
 const Home = () => {
   const [palette, setPalette] = useState([]);
