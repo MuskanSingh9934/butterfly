@@ -155,24 +155,144 @@ body {
   transform: none;
 }
 
+.palette-tools {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  background: var(--card-bg);
+  padding: 12px 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-top: -20px;
+}
+
+.tabs {
+  display: flex;
+  background: #f1f5f9;
+  padding: 6px;
+  border-radius: 12px;
+  gap: 4px;
+}
+
+.tabs button {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.tabs button.active {
+  background: white;
+  color: var(--primary-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.tool-btn {
+  padding: 10px 20px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.9rem;
+}
+
+.tool-btn:hover {
+  background: white;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.tab-content {
+  width: 100%;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Tailwind Grid */
+.tailwind-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  background: white;
+  padding: 32px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.shade-row h3 {
+  text-transform: capitalize;
+  margin: 0 0 16px 0;
+  font-size: 1.1rem;
+  color: var(--text-main);
+  text-align: left;
+}
+
+.shades {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 8px;
+}
+
+.shade-box {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.shade-box:hover {
+  transform: scale(1.1);
+  z-index: 10;
+}
+
+.shade-box span {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+/* CSS Preview */
+.css-preview {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 24px;
+  border-radius: 16px;
+  text-align: left;
+  overflow-x: auto;
+  font-family: "Fira Code", "Courier New", monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  max-width: 100%;
+}
+
+.css-preview code {
+  white-space: pre-wrap;
+}
+
 .palette-display {
   display: flex;
   justify-content: center;
   gap: 24px;
   flex-wrap: wrap;
-  animation: fadeIn 0.6s ease-out forwards;
   width: 100%;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .results-section {
@@ -180,6 +300,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .spinner-container {
@@ -207,33 +328,37 @@ body {
   }
 }
 
-.spinner-text {
-  font-weight: 600;
-  color: var(--text-muted);
-  font-size: 1.1rem;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Mobile Adjustments */
 @media (max-width: 768px) {
-  .home {
-    padding: 20px 16px;
+  .palette-tools {
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  .home-header {
-    padding: 40px 24px;
-    border-radius: 16px;
-  }
-
-  .input-section {
-    padding: 24px;
-    gap: 20px;
-  }
-
-  .input-group {
-    flex: 1 1 100%;
-  }
-
-  .input-section button {
+  .tabs {
     width: 100%;
+  }
+
+  .tabs button {
+    flex: 1;
+  }
+
+  .action-buttons {
+    justify-content: center;
+  }
+
+  .shades {
+    grid-template-columns: repeat(5, 1fr);
   }
 }

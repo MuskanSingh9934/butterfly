@@ -9,18 +9,25 @@ const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
  */
 export async function generatePalette(prompt) {
   try {
-    const fullPrompt = `Generate a website color palette with 5 colors for the theme: "${prompt}". 
-    Return the colors strictly in JSON format with the following keys:
-    "primary", "secondary", "background", "accent", "text".
-    The values should be hex codes.
-    Example: 
+    const fullPrompt = `Generate a comprehensive website color palette for the theme: "${prompt}". 
+    Return a JSON object with the following structure:
     {
-      "primary": "#000000",
-      "secondary": "#111111",
-      "background": "#ffffff",
-      "accent": "#ff0000",
-      "text": "#222222"
+      "colors": {
+        "primary": "hex",
+        "secondary": "hex",
+        "background": "hex",
+        "accent": "hex",
+        "text": "hex"
+      },
+      "tailwind": {
+        "primary": { "50": "hex", "100": "hex", "200": "hex", "300": "hex", "400": "hex", "500": "hex", "600": "hex", "700": "hex", "800": "hex", "900": "hex" },
+        "secondary": { "50": "hex", "100": "hex", "200": "hex", "300": "hex", "400": "hex", "500": "hex", "600": "hex", "700": "hex", "800": "hex", "900": "hex" },
+        "accent": { "50": "hex", "100": "hex", "200": "hex", "300": "hex", "400": "hex", "500": "hex", "600": "hex", "700": "hex", "800": "hex", "900": "hex" }
+      },
+      "cssVariables": ":root {\\n  --primary: ...;\\n  --primary-50: ...;\\n  ...\\n}",
+      "description": "Brief explanation of the color choices"
     }
+    Ensure the Tailwind scales are harmonious with the base colors. 
     Only return the JSON content. No other text.`;
 
     const response = await ai.models.generateContent({
