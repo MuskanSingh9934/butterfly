@@ -81,7 +81,10 @@ const Home = () => {
 
       <section className="results-section">
         {loading ? (
-          <div className="loading-spinner">Creating your palette...</div>
+          <div className="spinner-container">
+            <div className="spinner"></div>
+            <p className="spinner-text">Creating your perfect palette...</p>
+          </div>
         ) : (
           <PaletteDisplay palette={palette} />
         )}
