@@ -20,16 +20,16 @@ const Home = () => {
     setLoading(true);
     try {
       const result = await generatePalette(prompt);
-      // Convert the result object into an array of its values for PaletteDisplay
-      const colorArray = [
-        result.primary,
-        result.secondary,
-        result.background,
-        result.accent,
-        result.text,
-      ].filter(Boolean); // Filter out any undefined values just in case
+      // Map the object keys to an array of objects with color and label
+      const colorEntries = [
+        { label: "Primary", color: result.primary },
+        { label: "Secondary", color: result.secondary },
+        { label: "Background", color: result.background },
+        { label: "Accent", color: result.accent },
+        { label: "Text", color: result.text },
+      ].filter((item) => item.color);
 
-      setPalette(colorArray);
+      setPalette(colorEntries);
     } catch (error) {
       console.error("Failed to generate palette:", error);
       alert("Failed to generate palette. Please check your API key and try again.");
@@ -37,11 +37,6 @@ const Home = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleColorClick = (color) => {
-    navigator.clipboard.writeText(color);
-    alert(`Copied ${color} to clipboard!`);
   };
 
   return (
@@ -88,7 +83,7 @@ const Home = () => {
         {loading ? (
           <div className="loading-spinner">Creating your palette...</div>
         ) : (
-          <PaletteDisplay palette={palette} onColorClick={handleColorClick} />
+          <PaletteDisplay palette={palette} />
         )}
       </section>
     </div>
