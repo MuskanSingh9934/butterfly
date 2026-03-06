@@ -214,19 +214,8 @@ const Home = () => {
       <nav className="cf-nav">
         <div className="cf-nav-left">
           <div className="cf-logo">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <circle cx="14" cy="14" r="14" fill="url(#logoGrad)" />
-              <circle cx="10" cy="12" r="4" fill="rgba(255,255,255,0.9)" />
-              <circle cx="18" cy="12" r="4" fill="rgba(255,255,255,0.6)" />
-              <circle cx="14" cy="18" r="4" fill="rgba(255,255,255,0.75)" />
-              <defs>
-                <linearGradient id="logoGrad" x1="0" y1="0" x2="28" y2="28">
-                  <stop offset="0%" stopColor="#6366f1" />
-                  <stop offset="100%" stopColor="#a855f7" />
-                </linearGradient>
-              </defs>
-            </svg>
-            <span>ColorFlow</span>
+            <img src="/logo.png" alt="Butterfly" width={32} height={32} />
+            <span>Butterfly</span>
           </div>
         </div>
 
