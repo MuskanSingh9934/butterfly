@@ -109,6 +109,12 @@ const Home = () => {
   const [brandColor, setBrandColor] = useState("");
   const [showAIPanel, setShowAIPanel] = useState(false);
   const [allCopied, setAllCopied] = useState(false);
+  const [aiCredits, setAiCredits] = useState(() => {
+    const stored = localStorage.getItem("ai_credits");
+    if (stored !== null) return parseInt(stored, 10);
+    localStorage.setItem("ai_credits", "5");
+    return 5;
+  });
 
   const generateRandom = useCallback(() => {
     setColors((prev) =>
@@ -140,6 +146,11 @@ const Home = () => {
   };
 
   const handleAIGenerate = async () => {
+    if (aiCredits <= 0) {
+      alert("You have run out of AI credits.");
+      return;
+    }
+
     if (!websiteType || !mood) {
       alert("Please fill in both Website Type and Mood.");
       return;
@@ -160,6 +171,10 @@ const Home = () => {
       }
       setColors(newColors);
       setShowAIPanel(false);
+
+      const newCredits = aiCredits - 1;
+      setAiCredits(newCredits);
+      localStorage.setItem("ai_credits", newCredits.toString());
     } catch (err) {
       console.error(err);
       alert("Failed to generate. Check your API key.");
@@ -412,8 +427,16 @@ const Home = () => {
                   onChange={(e) => setBrandColor(e.target.value)}
                 />
               </div>
-              <button className="ai-generate-btn" onClick={handleAIGenerate} disabled={loading}>
-                {loading ? "Generating…" : "✨ Generate with AI"}
+              <button
+                className="ai-generate-btn"
+                onClick={handleAIGenerate}
+                disabled={loading || aiCredits <= 0}
+              >
+                {loading
+                  ? "Generating…"
+                  : aiCredits > 0
+                    ? `✨ Generate with AI (${aiCredits} left)`
+                    : "No Credits Left"}
               </button>
             </div>
           </div>
