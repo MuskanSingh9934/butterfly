@@ -108,6 +108,7 @@ const Home = () => {
   const [mood, setMood] = useState("");
   const [brandColor, setBrandColor] = useState("");
   const [showAIPanel, setShowAIPanel] = useState(false);
+  const [allCopied, setAllCopied] = useState(false);
 
   const generateRandom = useCallback(() => {
     setColors((prev) =>
@@ -186,6 +187,13 @@ const Home = () => {
     navigator.clipboard.writeText(hex);
     setCopiedIndex(index);
     setTimeout(() => setCopiedIndex(null), 1800);
+  };
+
+  const copyAllColors = () => {
+    const allHexes = colors.map((c) => c.hex).join(", ");
+    navigator.clipboard.writeText(allHexes);
+    setAllCopied(true);
+    setTimeout(() => setAllCopied(false), 1800);
   };
 
   const applyPreset = (preset) => {
@@ -292,6 +300,35 @@ const Home = () => {
               <line x1="5" y1="12" x2="19" y2="12" />
             </svg>
             Add
+          </button>
+          <button className="cf-nav-btn icon-btn" onClick={copyAllColors} title="Copy all colors">
+            {allCopied ? (
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            ) : (
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              >
+                <rect x="9" y="9" width="13" height="13" rx="2" />
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+              </svg>
+            )}
+            {allCopied ? "Copied" : "Copy All"}
           </button>
           <button
             className={`cf-nav-btn ai-btn ${showAIPanel ? "active" : ""}`}
